@@ -1,6 +1,6 @@
 <?php
 //$str = 'aababbabbbabbbbabbbbbabbbbbbabbbbbbbabbbbbbbbabbbbbbbbbabbbbbbbbbbabbbbbbbbbbb';
-$str = '112112112';
+$str = '111112111112111112';
 //$str = 'aaaaaaaaaaaaaaaaaa';
 if(checkSequence($str)){
     echo 'is periodic sequence';
@@ -9,21 +9,19 @@ if(checkSequence($str)){
 }
 
 function checkSequence($str){
-    $pos = strpos(substr($str, 1), $str[0])+1;
-
-    $podstr = substr($str, 0, $pos);
     $lstr = strlen($str);
-    if($lstr % $pos !== 0){
-        return false;
-    }
-    $i = $pos;
-    while($i < $lstr){
-        if($podstr !== substr($str, $i, $pos)){
-            return false;
+    for($l = 1; $l <= $lstr/2; $l++) {
+        $podstr = substr($str, 0, $l);
+        $i = $l; 
+		$flag = true;
+        while ($i < $lstr) {
+            if ($podstr !== substr($str, $i, $l)) {
+                $flag = false;
+                break;
+            }
+            $i += $l;
         }
-        $i += $pos;
+        if($flag) return true;
     }
-
-    return true;
+    return false;
 }
-
